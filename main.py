@@ -36,7 +36,25 @@ screen.onkey(right_paddle.down, "Down")  # Assuming Paddle class has a down meth
 game_is_on = True
 while game_is_on:
     screen.update()
-    # Here you would typically add code to move the ball, check for collisions, etc.
+    ball.move(800, 600)
+    #ball collision with paddles
+    if ball.distance(left_paddle) < 50 and ball.xcor() < -350:
+        ball.bounce_x()
+        ball.speed("fastest")
+    if ball.distance(right_paddle) < 50 and ball.xcor() > 350:
+        ball.bounce_x()
+        ball.speed("fastest")
+    #score handling
+    if ball.xcor() > 390:
+        scoreboard.increment_left_score()
+        ball.reset_ball()
+        ball.speed("normal")
+    if ball.xcor() < -390:
+        scoreboard.increment_right_score()
+        ball.reset_ball()
+        ball.speed("normal")
+        
+        
 # ==================================================
 
 screen.exitonclick()
